@@ -9,6 +9,60 @@ variable "pgsql_server_sku" {
   default     = "MO_Standard_E8ds_v4"
 }
 
+# Intel Cloud Optimization Module for PostgreSQL optimizations  
+variable "pgsql_configuration" {
+  description = "PostgreSQL Server Optimizations"
+  type        = map(string)
+  default = {
+    "max_connections"              = 256,
+    "shared_buffers"               = 64000,
+    "huge_pages"                   = "on",
+    "temp_buffers"                 = 4000,
+    "work_mem"                     = 2097151,
+    "maintenance_work_mem"         = 512000,
+    "autovacuum_work_mem"          = -1,
+    "effective_io_concurrency"     = 32,
+    "wal_level"                    = "logical",
+    "wal_buffers"                  = 512,
+    "cpu_tuple_cost"               = 0.03,
+    "effective_cache_size"         = 350000000,
+    "random_page_cost"             = 1.1,
+    "checkpoint_timeout"           = 3600,
+    "checkpoint_completion_target" = 0.9,
+    "checkpoint_warning"           = 1,
+    "log_min_messages"             = "error",
+    "log_min_error_statement "     = "error",
+    "autovacuum"                   = "on",
+    "autovacuum_max_workers"       = 10,
+    "autovacuum_vacuum_cost_limit" = 3000,
+    "datestyle"                    = "ISO, DMY",
+    "lc_monetary"                  = "en_US.UTF-8",
+    "lc_numeric"                   = "en_US.UTF-8",
+    "default_text_search_config"   = "pg_catalog.english",
+    "max_locks_per_transaction"    = 64,
+    "max_wal_senders"              = 5,
+    "min_wal_size"                 = 8192,
+    "max_wal_size"                 = 524
+
+
+    /* This parameter is READ-Only in Azure Portal and defaults to ON. */
+
+    # "synchronous_commit"   = "on",   
+
+    /* The set of PostgreSQL configuration parameter are available and recommended on the Xeon Tunning Guide,
+        but as of right now, configuration of this parameters ((given below) is not supported. */
+
+    # "max_stack_depth"     = 7,
+    # "dynamic_shared_memory_type" = "posix",
+    # "max_files_per_process" = 4000,
+    # "max_pred_locks_per_transaction" = 64,
+    # "archive_mode" = "off",
+    # "lc_time" = "en_US.UTF-8",
+    # "lc_messages" = "en_US.UTF-8",
+  }
+
+}
+
 #Resource Group Name
 variable "resource_group_name" {
   description = "Resource Group where resource will be created. It should already exist"
@@ -31,7 +85,7 @@ variable "pgsql_db_name" {
 variable "pgsql_version" {
   description = "PostgreSQL Version"
   type        = string
-  default     = "13"   #ASK LUCAS
+  default     = "13" #ASK LUCAS
 }
 
 #PostgreSQL Server admin username 
@@ -51,36 +105,15 @@ variable "pgsql_administrator_login_password" {
 #Mode of creation for PostgreSQL Server
 variable "create_mode" {
   description = "The creation mode which can be used to restore or replicate existing servers. Possible values are Default and PointInTimeRestore. Changing this forces a new PostgreSQL Flexible Server to be created."
-  type        = string 
-  default     = "Default" 
-}
-
-#Subnet Name
-variable "subnet_name"{
-  description = "Specifies the name of the Subnet."
-  type = string
-  default = null
-}
-
-#Virtual Network Name 
-variable "subnet_virtual_network_name"{
-  description = "Specifies the name of the Virtual Network this Subnet is located within."
-  type = string
-  default = null
-}
-
-#Resource group name that the subnet is within
-variable "subnet_resource_group_name"{
-  description = "Specifies the name of the resource group the Virtual Network is located in."
-  type = string
-  default = null
+  type        = string
+  default     = "Default"
 }
 
 #Capacity of the PostgreSQL
 variable "storage_mb" {
   description = "The max storage allowed for the PostgreSQL Flexible Server. Possible values (MB) are 32768, 65536, 131072, 262144, 524288, 1048576, 2097152, 4194304, 8388608, and 16777216."
-  type = number
-  default = 32768
+  type        = number
+  default     = 32768
 }
 
 #Tags
@@ -93,9 +126,9 @@ variable "tags" {
 #For example:  [{start_ip_address = ..., end_ip_address = ... },..]"
 variable "firewall_ip_range" {
   type = list(object({
-    start_ip_address  = string
-    end_ip_address    = string
+    start_ip_address = string
+    end_ip_address   = string
   }))
-  description = "User will provide range of IP adrress in form of List of (objects)"             
-  default = [] 
+  description = "User will provide range of IP adrress in form of List of (objects)"
+  default     = []
 }
