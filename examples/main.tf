@@ -6,8 +6,8 @@ variable "pgsql_administrator_login_password" {
 module "optimized-pgsql-server" {
   source                             = "../"              #add the github url later
   resource_group_name                = "shreejan_test_mssql"
-  pgsql_server_name                  = "optimized-pgsql-server"
-  pgsql_db_name                      = "optimized-pgsql-db"
+  pgsql_server_name                  = "optimized-pgsql-server-test"
+  pgsql_db_name                      = "optimized-pgsql-db-test"
   pgsql_administrator_login_password = var.pgsql_administrator_login_password
   tags                               = {
                                             "duration" = 2,
