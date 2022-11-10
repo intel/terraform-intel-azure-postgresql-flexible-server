@@ -65,3 +65,56 @@ terraform apply -var="mssql_administrator_login_password=..." #Enter a complex p
 ## Considerations
 This module further provides the ability to add firewall_ip_range (Usage Example provided above). For more information : https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_firewall_rule
 
+
+<!-- BEGIN_TF_DOCS -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~>3.26.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~>3.26.0 |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [azurerm_postgresql_flexible_server.postgresql_flexible](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server) | resource |
+| [azurerm_postgresql_flexible_server_configuration.pgsql_server_config](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_configuration) | resource |
+| [azurerm_postgresql_flexible_server_database.postgresql_flexible_db](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_database) | resource |
+| [azurerm_postgresql_flexible_server_firewall_rule.example](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_firewall_rule) | resource |
+| [azurerm_resource_group.rg](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/resource_group) | data source |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_create_mode"></a> [create\_mode](#input\_create\_mode) | The creation mode which can be used to restore or replicate existing servers. Possible values are Default and PointInTimeRestore. Changing this forces a new PostgreSQL Flexible Server to be created. | `string` | `"Default"` | no |
+| <a name="input_firewall_ip_range"></a> [firewall\_ip\_range](#input\_firewall\_ip\_range) | User will provide range of IP adrress in form of List of (objects) | <pre>list(object({<br>    start_ip_address = string<br>    end_ip_address   = string<br>  }))</pre> | `[]` | no |
+| <a name="input_pgsql_administrator_login"></a> [pgsql\_administrator\_login](#input\_pgsql\_administrator\_login) | PostgreSQL server name admin username | `string` | `"pgsqladmin"` | no |
+| <a name="input_pgsql_administrator_login_password"></a> [pgsql\_administrator\_login\_password](#input\_pgsql\_administrator\_login\_password) | PostgreSQL server name admin password | `string` | n/a | yes |
+| <a name="input_pgsql_configuration"></a> [pgsql\_configuration](#input\_pgsql\_configuration) | PostgreSQL Server Optimizations | `map(string)` | <pre>{<br>  "autovacuum": "on",<br>  "autovacuum_max_workers": 10,<br>  "autovacuum_vacuum_cost_limit": 3000,<br>  "autovacuum_work_mem": -1,<br>  "checkpoint_completion_target": 0.9,<br>  "checkpoint_timeout": 3600,<br>  "checkpoint_warning": 1,<br>  "cpu_tuple_cost": 0.03,<br>  "datestyle": "ISO, DMY",<br>  "default_text_search_config": "pg_catalog.english",<br>  "effective_cache_size": 350000000,<br>  "effective_io_concurrency": 32,<br>  "huge_pages": "on",<br>  "lc_monetary": "en_US.UTF-8",<br>  "lc_numeric": "en_US.UTF-8",<br>  "log_min_error_statement ": "error",<br>  "log_min_messages": "error",<br>  "maintenance_work_mem": 512000,<br>  "max_connections": 256,<br>  "max_locks_per_transaction": 64,<br>  "max_wal_senders": 5,<br>  "max_wal_size": 524,<br>  "min_wal_size": 8192,<br>  "random_page_cost": 1.1,<br>  "shared_buffers": 64000,<br>  "temp_buffers": 4000,<br>  "wal_buffers": 512,<br>  "wal_level": "logical",<br>  "work_mem": 2097151<br>}</pre> | no |
+| <a name="input_pgsql_db_name"></a> [pgsql\_db\_name](#input\_pgsql\_db\_name) | PostgreSQL Databas name | `string` | n/a | yes |
+| <a name="input_pgsql_server_name"></a> [pgsql\_server\_name](#input\_pgsql\_server\_name) | PostgreSQL server name | `string` | n/a | yes |
+| <a name="input_pgsql_server_sku"></a> [pgsql\_server\_sku](#input\_pgsql\_server\_sku) | The SKU Name for the PostgreSQL Flexible Server. The name of the SKU, follows the tier + name pattern (e.g. B\_Standard\_B1ms, GP\_Standard\_D2s\_v3, MO\_Standard\_E4s\_v3). | `string` | `"MO_Standard_E8ds_v4"` | no |
+| <a name="input_pgsql_version"></a> [pgsql\_version](#input\_pgsql\_version) | PostgreSQL Version | `string` | `"13"` | no |
+| <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | Resource Group where resource will be created. It should already exist | `string` | n/a | yes |
+| <a name="input_storage_mb"></a> [storage\_mb](#input\_storage\_mb) | The max storage allowed for the PostgreSQL Flexible Server. Possible values (MB) are 32768, 65536, 131072, 262144, 524288, 1048576, 2097152, 4194304, 8388608, and 16777216. | `number` | `32768` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Tags | `map(string)` | `{}` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_fqdn"></a> [fqdn](#output\_fqdn) | n/a |
+| <a name="output_id"></a> [id](#output\_id) | n/a |
+| <a name="output_public_network_access_enabled"></a> [public\_network\_access\_enabled](#output\_public\_network\_access\_enabled) | n/a |
+<!-- END_TF_DOCS -->
