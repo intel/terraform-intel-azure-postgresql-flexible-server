@@ -77,7 +77,7 @@ variable "pgsql_server_name" {
 
 #PostgreSQL Database Name 
 variable "pgsql_db_name" {
-  description = "PostgreSQL Databas name"
+  description = "PostgreSQL Database name"
   type        = string
 }
 
