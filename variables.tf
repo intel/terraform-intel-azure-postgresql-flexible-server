@@ -85,7 +85,11 @@ variable "pgsql_db_name" {
 variable "pgsql_version" {
   description = "PostgreSQL Version"
   type        = string
-  default     = "13" #ASK LUCAS
+  validation {
+    condition     = contains(["11", "12", "13", "14"], var.pgsql_version)
+    error_message = "The pgsql_version must be one of the following: \"11\",\"12\",\"13\", or \"14\"."
+  }
+  default = "13" #ASK LUCAS
 }
 
 #PostgreSQL Server admin username 
