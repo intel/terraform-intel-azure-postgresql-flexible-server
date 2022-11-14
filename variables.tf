@@ -65,7 +65,7 @@ variable "pgsql_configuration" {
 
 #Resource Group Name
 variable "resource_group_name" {
-  description = "Resource Group where resource will be created. It should already exist"
+  description = "Existing Resource Group where resource will be created."
   type        = string
 }
 
