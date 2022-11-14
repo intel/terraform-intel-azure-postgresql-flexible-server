@@ -129,6 +129,6 @@ variable "firewall_ip_range" {
     start_ip_address = string
     end_ip_address   = string
   }))
-  description = "User will provide range of IP adrress in form of List of (objects)"
+  description = "User will provide range of IP addrress in form of List of (objects)"
   default     = []
 }
