@@ -1,10 +1,6 @@
-variable "pgsql_administrator_login_password" {
-  description = "The admin password"
-}
-
 # Provision Intel Optimized Azure PostgreSQL server 
 module "optimized-pgsql-server" {
-  source                             = "../"              #add the github url later
+  source                             = "../../"                                                #add the github url later
   resource_group_name                = "shreejan_test_mssql"
   pgsql_server_name                  = "optimized-pgsql-server-test"
   pgsql_db_name                      = "optimized-pgsql-db-test"
@@ -20,9 +16,6 @@ module "optimized-pgsql-server" {
                                             {start_ip_address = "79.4.142.148",end_ip_address = "79.4.142.148"}
                                          ]
 }
-
-
-
 
 #terraform init  
 #terraform plan -var="pgsql_administrator_login_password=..." #Enter a complex password

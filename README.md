@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./images/logo-classicblue-800px.png" alt="Intel Logo" width="250"/>
+</p>
+
 ## Terraform Module Acclerated by Intel for Azure PostgreSQL Flexible Server
 This module can be used to deploy an Intel optimized Azure PostgreSQL Flexible Server instance. 
 
@@ -26,8 +30,11 @@ mssql_administrator_login_password
 ```
 
 Example of Error:
-Error Message ::: " Server Name: "optimized-pgsql-server"): polling after Create: Code="ServerGroupDropping" Message="Operations on a server group in dropping state are not allowed." " 
-->>> If you see this error message above, this is because the pgsql_server_name already exist and the user needs to provide  different unique name
+->>> If you see this error message below, this is because the pgsql_server_name already exist and the user needs to provide different unique pgsql_server_name.
+```hcl 
+Error Message ::: " Server Name: "optimized-pgsql-server"): polling after Create: Code="ServerGroupDropping" Message="Operations on a server group in dropping state are not allowed."
+
+```
 
 Example of main.tf
 ```hcl

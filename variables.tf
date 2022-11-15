@@ -63,6 +63,14 @@ variable "pgsql_configuration" {
 
 }
 
+#PostgreSQL Server admin password. Do not commit password to version control systems 
+variable "pgsql_administrator_login_password" {
+  description = "PostgreSQL server name admin password"
+  type        = string
+  sensitive   = true
+}
+
+
 #Resource Group Name
 variable "resource_group_name" {
   description = "Resource Group where resource will be created. It should already exist"
@@ -81,25 +89,18 @@ variable "pgsql_db_name" {
   type        = string
 }
 
-#The version of PostgreSQL Flexible Server to use. Possible values are 11,12, 13 and 14. Required when create_mode is Default. Changing this forces a new PostgreSQL Flexible Server to be created.
-variable "pgsql_version" {
-  description = "PostgreSQL Version"
-  type        = string
-  default     = "13" #ASK LUCAS
-}
-
-#PostgreSQL Server admin username 
+#PostgreSQL Server admin login name
 variable "pgsql_administrator_login" {
-  description = "PostgreSQL server name admin username"
+  description = "PostgreSQL server name admin name"
   type        = string
   default     = "pgsqladmin"
 }
 
-#PostgreSQL Server admin password. Do not commit password to version control systems 
-variable "pgsql_administrator_login_password" {
-  description = "PostgreSQL server name admin password"
+#The version of PostgreSQL Flexible Server to use. Possible values are 11,12, 13 and 14. Required when create_mode is Default. Changing this forces a new PostgreSQL Flexible Server to be created.
+variable "pgsql_version" {
+  description = "PostgreSQL Version"
   type        = string
-  sensitive   = true
+  default     = "13"
 }
 
 #Mode of creation for PostgreSQL Server
