@@ -116,7 +116,7 @@ No modules.
 | <a name="input_pgsql_db_name"></a> [pgsql\_db\_name](#input\_pgsql\_db\_name) | PostgreSQL Database name | `string` | n/a | yes |
 | <a name="input_pgsql_server_name"></a> [pgsql\_server\_name](#input\_pgsql\_server\_name) | PostgreSQL server name | `string` | n/a | yes |
 | <a name="input_pgsql_server_sku"></a> [pgsql\_server\_sku](#input\_pgsql\_server\_sku) | The SKU Name for the PostgreSQL Flexible Server. The name of the SKU, follows the tier + name pattern (e.g. B\_Standard\_B1ms, GP\_Standard\_D2s\_v3, MO\_Standard\_E4s\_v3). | `string` | `"MO_Standard_E8ds_v4"` | no |
-| <a name="input_pgsql_version"></a> [pgsql\_version](#input\_pgsql\_version) | PostgreSQL Version | `string` | `"13"` | no |
+| <a name="input_pgsql_version"></a> [pgsql\_version](#input\_pgsql\_version) | PostgreSQL Version | `string` | `"14"` | no |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | Existing Resource Group where resource will be created. | `string` | n/a | yes |
 | <a name="input_storage_mb"></a> [storage\_mb](#input\_storage\_mb) | The max storage allowed for the PostgreSQL Flexible Server. Possible values (MB) are 32768, 65536, 131072, 262144, 524288, 1048576, 2097152, 4194304, 8388608, and 16777216. | `number` | `32768` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags | `map(string)` | `{}` | no |
