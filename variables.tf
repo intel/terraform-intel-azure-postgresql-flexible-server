@@ -104,7 +104,7 @@ variable "pgsql_version" {
     condition     = contains(["11", "12", "13", "14"], var.pgsql_version)
     error_message = "The pgsql_version must be one of the following: \"11\",\"12\",\"13\", or \"14\"."
   }
-  default = "13" #ASK LUCAS
+  default = "13" 
 }
 
 #PostgreSQL Server admin username 
@@ -112,13 +112,6 @@ variable "pgsql_administrator_login" {
   description = "PostgreSQL server name admin username"
   type        = string
   default     = "pgsqladmin"
-}
-
-#PostgreSQL Server admin password. Do not commit password to version control systems 
-variable "pgsql_administrator_login_password" {
-  description = "PostgreSQL server name admin password"
-  type        = string
-  sensitive   = true
 }
 
 #Mode of creation for PostgreSQL Server
