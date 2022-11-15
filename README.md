@@ -78,6 +78,7 @@ This module further provides the ability to add firewall_ip_range (Usage Example
 
 | Name | Version |
 |------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.2.0 |
 | <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~>3.26.0 |
 
 ## Providers
@@ -121,7 +122,7 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_fqdn"></a> [fqdn](#output\_fqdn) | n/a |
-| <a name="output_id"></a> [id](#output\_id) | n/a |
-| <a name="output_public_network_access_enabled"></a> [public\_network\_access\_enabled](#output\_public\_network\_access\_enabled) | n/a |
+| <a name="output_postgresql_fqdn"></a> [postgresql\_fqdn](#output\_postgresql\_fqdn) | The FQDN of the PostgreSQL Flexible Server. |
+| <a name="output_postgresql_id"></a> [postgresql\_id](#output\_postgresql\_id) | The ID of the PostgreSQL Flexible Server. |
+| <a name="output_postgresql_public_network_access_enabled"></a> [postgresql\_public\_network\_access\_enabled](#output\_postgresql\_public\_network\_access\_enabled) | Is public network access enabled? |
 <!-- END_TF_DOCS -->
