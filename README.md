@@ -57,6 +57,7 @@ module "optimized-pgsql-server" {
   #For example: " [{start_ip_address = ..., end_ip_address = ... },..]"
   firewall_ip_range                 =  [
                                             {start_ip_address = "ENTER_START_IP_ADDRESS_HERE", end_ip_address = "ENTER_END_IP_ADDRESS_HERE" },...
+                                       ]
 }
 
 
