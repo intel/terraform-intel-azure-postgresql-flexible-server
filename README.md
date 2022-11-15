@@ -46,7 +46,7 @@ variable "mssql_administrator_login_password" {
 
 # Provision Intel Optimized Azure PostgreSQL server 
 module "optimized-pgsql-server" {
-  source                             = "../"              #add the github url later
+  source                             = "../../"                                                        #add the github url later
   resource_group_name                = "ENTER_RG_NAME_HERE"
   pgsql_server_name                  = "ENTER_PGSQL_SERVER_NAME_HERE"
   pgsql_db_name                      = "ENTER_PGSQL_DB_NAME_HERE"
