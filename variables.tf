@@ -89,13 +89,6 @@ variable "pgsql_db_name" {
   type        = string
 }
 
-#PostgreSQL Server admin login name
-variable "pgsql_administrator_login" {
-  description = "PostgreSQL server name admin name"
-  type        = string
-  default     = "pgsqladmin"
-}
-
 #The version of PostgreSQL Flexible Server to use. Possible values are 11,12, 13 and 14. Required when create_mode is Default. Changing this forces a new PostgreSQL Flexible Server to be created.
 variable "pgsql_version" {
   description = "PostgreSQL Version"
