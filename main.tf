@@ -14,8 +14,8 @@ resource "azurerm_postgresql_flexible_server" "postgresql_flexible" {
   administrator_login    = var.pgsql_administrator_login
   administrator_password = var.pgsql_administrator_login_password
   create_mode            = var.create_mode
-  sku_name   = var.pgsql_server_sku
-  storage_mb = var.storage_mb
+  sku_name               = var.pgsql_server_sku
+  storage_mb             = var.storage_mb
   tags = merge(
     var.tags,
     {
@@ -40,8 +40,8 @@ resource "azurerm_postgresql_flexible_server_firewall_rule" "example" {
 }
 
 resource "azurerm_postgresql_flexible_server_configuration" "pgsql_server_config" {
-    for_each  = local.pgsql_config
-    name      = each.key
-    server_id = azurerm_postgresql_flexible_server.postgresql_flexible.id
-    value     = each.value
- }
+  for_each  = local.pgsql_config
+  name      = each.key
+  server_id = azurerm_postgresql_flexible_server.postgresql_flexible.id
+  value     = each.value
+}

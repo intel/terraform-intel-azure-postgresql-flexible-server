@@ -97,7 +97,7 @@ variable "pgsql_version" {
     condition     = contains(["11", "12", "13", "14"], var.pgsql_version)
     error_message = "The pgsql_version must be one of the following: \"11\",\"12\",\"13\", or \"14\"."
   }
-  default = "13" 
+  default = "13"
 }
 
 #PostgreSQL Server admin username 
