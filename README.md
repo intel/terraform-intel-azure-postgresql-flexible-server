@@ -2,7 +2,9 @@
   <img src="./images/logo-classicblue-800px.png" alt="Intel Logo" width="250"/>
 </p>
 
-## Terraform Module Acclerated by Intel for Azure PostgreSQL Flexible Server
+# Intel Cloud Optimization Modules for Terraform
+
+## Azure PostgreSQL Flexible Server Module 
 This module can be used to deploy an Intel optimized Azure PostgreSQL Flexible Server instance. 
 
 Instance selection and configuration are included by default in the code. 
