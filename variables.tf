@@ -73,7 +73,7 @@ variable "pgsql_administrator_login_password" {
 
 #Resource Group Name
 variable "resource_group_name" {
-  description = "Resource Group where resource will be created. It should already exist"
+  description = "Existing Resource Group where resource will be created."
   type        = string
 }
 
@@ -85,7 +85,7 @@ variable "pgsql_server_name" {
 
 #PostgreSQL Database Name 
 variable "pgsql_db_name" {
-  description = "PostgreSQL Databas name"
+  description = "PostgreSQL Database name"
   type        = string
 }
 
@@ -100,7 +100,25 @@ variable "pgsql_administrator_login" {
 variable "pgsql_version" {
   description = "PostgreSQL Version"
   type        = string
-  default     = "13"
+  validation {
+    condition     = contains(["11", "12", "13", "14"], var.pgsql_version)
+    error_message = "The pgsql_version must be one of the following: \"11\",\"12\",\"13\", or \"14\"."
+  }
+  default = "13" #ASK LUCAS
+}
+
+#PostgreSQL Server admin username 
+variable "pgsql_administrator_login" {
+  description = "PostgreSQL server name admin username"
+  type        = string
+  default     = "pgsqladmin"
+}
+
+#PostgreSQL Server admin password. Do not commit password to version control systems 
+variable "pgsql_administrator_login_password" {
+  description = "PostgreSQL server name admin password"
+  type        = string
+  sensitive   = true
 }
 
 #Mode of creation for PostgreSQL Server
@@ -130,6 +148,6 @@ variable "firewall_ip_range" {
     start_ip_address = string
     end_ip_address   = string
   }))
-  description = "User will provide range of IP adrress in form of List of (objects)"
+  description = "User will provide range of IP addrress in form of List of (objects)"
   default     = []
 }
