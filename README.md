@@ -70,7 +70,7 @@ terraform apply -var="pgsql_administrator_login_password=..." #Enter a complex p
 
 ```
 ## Considerations
-This module further provides the ability to add firewall_ip_range (Usage Example provided above). For more information [azurerm_postgresql_flexible_server_firewall_rule] (<https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_firewall_rule>)
+This module further provides the ability to add firewall_ip_range (Usage Example provided above). For more information [azurerm_postgresql_flexible_server_firewall_rule](<https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_firewall_rule>)
 
 
 <!-- BEGIN_TF_DOCS -->
