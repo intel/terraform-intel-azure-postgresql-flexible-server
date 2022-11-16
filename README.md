@@ -12,6 +12,7 @@ The PostgreSQL Optimizations were based off [Intel Xeon Tunning guides](<https:/
 
 
 
+
 ## Usage
 
 See examples folder for code ./examples/main.tf
@@ -25,6 +26,7 @@ resource_group_name
 pgsql_server_name  
 pgsql_db_name 
 pgsql_administrator_login_password 
+
 
 ```
 
@@ -71,6 +73,7 @@ terraform apply -var="pgsql_administrator_login_password=..." #Enter a complex p
 ```
 ## Considerations
 This module further provides the ability to add firewall_ip_range (Usage Example provided above). For more information [azurerm_postgresql_flexible_server_firewall_rule](<https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_firewall_rule>)
+
 
 
 <!-- BEGIN_TF_DOCS -->
