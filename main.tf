@@ -93,7 +93,7 @@ resource "azurerm_postgresql_flexible_server_firewall_rule" "firewall" {
   end_ip_address   = each.value.end_ip_address
 }
 
-resource "azurerm_postgresql_flexible_server_configuration" "pgsql_server_config" {
+resource "azurerm_postgresql_flexible_server_configuration" "postgres" {
   for_each  = local.db_parameters
   name      = each.key
   server_id = azurerm_postgresql_flexible_server.postgres.id
