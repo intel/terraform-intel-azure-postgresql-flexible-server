@@ -1,9 +1,15 @@
-#PostgreSQL Sever SKU 
-#The Eds_v4-series run on the 3rd Generation Intel® Xeon® Platinum 8370C (Ice Lake), the Intel® Xeon® Platinum 8272CL (Cascade Lake) processors.
-# We recommend Memory Optimized instances (2- 64 vCores) - MO_Standard_E2ds_v4, MO_Standard_E4ds_v4, MO_Standard_E8ds_v4, MO_Standard_E16ds_v4, MO_Standard_E20ds_v4, MO_Standard_E32ds_v4,MO_Standard_E48ds_v4, MO_Standard_E64ds_v4
+########################
+####     Intel      ####
+########################
+
+# See policies.md, we recomment the Eds_v4-series running on the 3rd Generation Intel® Xeon® Platinum 8370C (Ice Lake), the Intel® Xeon® Platinum 8272CL (Cascade Lake) processors.
+# General Purpose: GP_Standard_E2ds_v4, GP_Standard_E4ds_v4, GP_Standard_E8ds_v4, GP_Standard_E16ds_v4, GP_Standard_E20ds_v4, GP_Standard_E32ds_v4,GP_Standard_E48ds_v4, GP_Standard_E64ds_v4
+# Memory Optimized: MO_Standard_E2ds_v4, MO_Standard_E4ds_v4, MO_Standard_E8ds_v4, MO_Standard_E16ds_v4, MO_Standard_E20ds_v4, MO_Standard_E32ds_v4,MO_Standard_E48ds_v4, MO_Standard_E64ds_v4
 # The number between E and d in MO_Standard_E8ds_v4 stands for vCores. 
 # Ex.: MO_Standard_E8ds_v4-> 8 stands for vCPU count
-# Azure Docs: https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage
+# See more:
+# https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage
+
 variable "pgsql_server_sku" {
   description = "The SKU Name for the PostgreSQL Flexible Server. The name of the SKU, follows the tier + name pattern (e.g. B_Standard_B1ms, GP_Standard_D2s_v3, MO_Standard_E4s_v3)."
   default     = "MO_Standard_E8ds_v4"
