@@ -17,9 +17,9 @@ module "optimized-postgres-server" {
       start_ip_address = "0.0.0.0"
     },
     {
-      end_ip_address   = "0.0.0.0"
+      end_ip_address   = "172.16.1.254"
       name             = "Test-Rule"
-      start_ip_address = "0.0.0.0"
+      start_ip_address = "172.16.1.1"
     }
   ]
 }
