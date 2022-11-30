@@ -4,81 +4,75 @@
 
 # Intel Cloud Optimization Modules for Terraform
 
-## Azure PostgreSQL Flexible Server Module 
-This module can be used to deploy an Intel optimized Azure PostgreSQL Flexible Server instance. 
+## Azure PostgreSQL Flexible Server Module
+
+This module can be used to deploy an Intel optimized Azure PostgreSQL Flexible Server instance.
 Instance selection and pgsql optimization are included by default in the code.
 
 The PostgreSQL Optimizations were based off [Intel Xeon Tunning guides](<https://www.intel.com/content/www/us/en/developer/articles/guide/open-source-database-tuning-guide-on-xeon-systems.html>)
 
-
-
-
 ## Usage
 
-See examples folder for code ./examples/main.tf
+**See examples folder for complete examples.**
 
-
-
-By default, you will only have to pass four variables
+By default, you will only have to pass three variables
 
 ```hcl
-resource_group_name 
-pgsql_server_name  
-pgsql_db_name 
-pgsql_administrator_login_password 
-
-
+resource_group_name    
+db_server_name       
+db_password         
 ```
+
+variables.tf
+
+```hcl
+variable "db_password" {
+  description = "Password for the master database user."
+  type        = string
+  sensitive   = true
+}
+```
+
+main.tf
+
+```hcl
+module "optimized-mysql-server" {
+  source          = "github.com/intel/terraform-intel-azure-postgresql_flexible_server"
+  resource_group_name = "<RESOURCE_GROUP_NAME>"   
+  db_server_name      = "<DB_SERVER_NAME>" 
+  db_password         = var.db_password
+}
+```
+
+Run Terraform
+
+```hcl
+export TF_VAR_db_password ='<USE_A_STRONG_PASSWORD>'
+
+terraform init  
+terraform plan
+terraform apply 
+```
+
+## Considerations
 
 Example of Error:
 ->>> If you see this error message below, this is because the pgsql_server_name already exist and the user needs to provide different unique pgsql_server_name.
-```hcl 
+
+```hcl
 Error Message ::: " Server Name: "optimized-pgsql-server"): polling after Create: Code="ServerGroupDropping" Message="Operations on a server group in dropping state are not allowed."
 ```
+
 Example of Error:
 ->>> If you see this error message below, this is because the High Avability Mode is disabled for that region. Acceptable regions are [Azure Region](<https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/overview#azure-regions>)
-```hcl 
+
+```hcl
 Error Message ::: "Server Name: "optimized-postgres-server"): polling after Create: Code="HADisabledForRegion" Message="HA is disabled for region westus2.""
 ```
 
-Example of main.tf
-```hcl
-# main.tf
-
-variable "mssql_administrator_login_password" {
-  description = "The admin password"
-}
-
-# Provision Intel Optimized Azure PostgreSQL server 
-module "optimized-pgsql-server" {
-  source                             = "../../"                                                        #add the github url later
-  resource_group_name                = "ENTER_RG_NAME_HERE"
-  pgsql_server_name                  = "ENTER_PGSQL_SERVER_NAME_HERE"
-  pgsql_db_name                      = "ENTER_PGSQL_DB_NAME_HERE"
-  pgsql_administrator_login_password = var.pgsql_administrator_login_password
-  tags                               = {"ENTER_TAG_KEY" = "ENTER_TAG_VALUE", ... }                      #Can add tags as key-value pair (Optional)
-
-  #firewall_ip_ranges                                                                                   #Can add firewall rules (Optional)
-  #For example: " [{start_ip_address = ..., end_ip_address = ... },..]"                                
-  firewall_ip_range                  =  [
-                                            {start_ip_address = "ENTER_START_IP_ADDRESS_HERE", end_ip_address = "ENTER_END_IP_ADDRESS_HERE" },...
-                                       ]
-}
-
-
-
-```
-Run terraform
-```
-terraform init  
-terraform plan -var="pgsql_administrator_login_password=..." #Enter a complex password
-terraform apply -var="pgsql_administrator_login_password=..." #Enter a complex password
-
-```
-## Considerations
 This module further provides the ability to add firewall_ip_range (Usage Example provided above). For more information [azurerm_postgresql_flexible_server_firewall_rule](<https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_firewall_rule>)
 
-
+Note that this example creates resources. Run `terraform destroy` when you don't need these resources.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
