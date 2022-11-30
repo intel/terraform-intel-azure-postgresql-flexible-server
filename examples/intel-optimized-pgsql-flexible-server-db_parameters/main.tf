@@ -1,13 +1,13 @@
 module "optimized-postgres-server" {
-  source              = "../../"
-  resource_group_name = "resource_group_name"              # Required
-  db_server_name      = "optimized-postgres-server" #  Required
-  db_password         = var.db_password             # Required
-  db_ha_mode          = "ZoneRedundant"             # Optional
-  db_name             = "test-db"                   # Optional
+  source              = "github.com/intel/terraform-intel-azure-postgresql_flexible_server"
+  resource_group_name = "resource_group_name" # Required
+  db_server_name      = "mysetestingserver34" # Required
+  db_password         = var.db_password       # Required
+  db_ha_mode          = "ZoneRedundant"
+  db_name             = "test-db1"
   tags = {
-    name    = "name"
-    purpose = "intel"
+    Owner       = "John Doe"
+    Application = "App Database"
   }
 
   db_parameters = {
@@ -24,5 +24,5 @@ module "optimized-postgres-server" {
       }
     }
   }
-
 }
+

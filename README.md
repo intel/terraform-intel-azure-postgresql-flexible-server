@@ -4,81 +4,73 @@
 
 # Intel Cloud Optimization Modules for Terraform
 
-## Azure PostgreSQL Flexible Server Module 
-This module can be used to deploy an Intel optimized Azure PostgreSQL Flexible Server instance. 
+## Azure PostgreSQL Flexible Server Module
+
+This module can be used to deploy an Intel optimized Azure PostgreSQL Flexible Server instance.
 Instance selection and pgsql optimization are included by default in the code.
 
 The PostgreSQL Optimizations were based off [Intel Xeon Tunning guides](<https://www.intel.com/content/www/us/en/developer/articles/guide/open-source-database-tuning-guide-on-xeon-systems.html>)
 
-
-
-
 ## Usage
 
-See examples folder for code ./examples/main.tf
+**See examples folder for complete examples.**
 
-
-
-By default, you will only have to pass four variables
+By default, you will only have to pass three variables
 
 ```hcl
-resource_group_name 
-pgsql_server_name  
-pgsql_db_name 
-pgsql_administrator_login_password 
-
-
+resource_group_name    
+db_server_name       
+db_password         
 ```
 
-Example of Error:
-->>> If you see this error message below, this is because the pgsql_server_name already exist and the user needs to provide different unique pgsql_server_name.
-```hcl 
+variables.tf
+
+```hcl
+variable "db_password" {
+  description = "Password for the master database user."
+  type        = string
+  sensitive   = true
+}
+```
+
+main.tf
+
+```hcl
+module "optimized-mysql-server" {
+  source          = "github.com/intel/terraform-intel-azure-postgresql_flexible_server"
+  resource_group_name = "<RESOURCE_GROUP_NAME>"   
+  db_server_name      = "<DB_SERVER_NAME>" 
+  db_password         = var.db_password
+}
+```
+
+Run Terraform
+
+```hcl
+export TF_VAR_db_password ='<USE_A_STRONG_PASSWORD>'
+
+terraform init  
+terraform plan
+terraform apply 
+```
+
+## Considerations
+
+If you see this error message below, this is because the pgsql_server_name already exist and the user needs to provide different unique pgsql_server_name.
+
+```hcl
 Error Message ::: " Server Name: "optimized-pgsql-server"): polling after Create: Code="ServerGroupDropping" Message="Operations on a server group in dropping state are not allowed."
 ```
-Example of Error:
-->>> If you see this error message below, this is because the High Avability Mode is disabled for that region. Acceptable regions are [Azure Region](<https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/overview#azure-regions>)
-```hcl 
+
+If you see this error message below, this is because the High Avability Mode is disabled for that region. Acceptable regions are [Azure Region](<https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/overview#azure-regions>)
+
+```hcl
 Error Message ::: "Server Name: "optimized-postgres-server"): polling after Create: Code="HADisabledForRegion" Message="HA is disabled for region westus2.""
 ```
 
-Example of main.tf
-```hcl
-# main.tf
-
-variable "mssql_administrator_login_password" {
-  description = "The admin password"
-}
-
-# Provision Intel Optimized Azure PostgreSQL server 
-module "optimized-pgsql-server" {
-  source                             = "../../"                                                        #add the github url later
-  resource_group_name                = "ENTER_RG_NAME_HERE"
-  pgsql_server_name                  = "ENTER_PGSQL_SERVER_NAME_HERE"
-  pgsql_db_name                      = "ENTER_PGSQL_DB_NAME_HERE"
-  pgsql_administrator_login_password = var.pgsql_administrator_login_password
-  tags                               = {"ENTER_TAG_KEY" = "ENTER_TAG_VALUE", ... }                      #Can add tags as key-value pair (Optional)
-
-  #firewall_ip_ranges                                                                                   #Can add firewall rules (Optional)
-  #For example: " [{start_ip_address = ..., end_ip_address = ... },..]"                                
-  firewall_ip_range                  =  [
-                                            {start_ip_address = "ENTER_START_IP_ADDRESS_HERE", end_ip_address = "ENTER_END_IP_ADDRESS_HERE" },...
-                                       ]
-}
-
-
-
-```
-Run terraform
-```
-terraform init  
-terraform plan -var="pgsql_administrator_login_password=..." #Enter a complex password
-terraform apply -var="pgsql_administrator_login_password=..." #Enter a complex password
-
-```
-## Considerations
 This module further provides the ability to add firewall_ip_range (Usage Example provided above). For more information [azurerm_postgresql_flexible_server_firewall_rule](<https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_firewall_rule>)
 
-
+Note that this example creates resources. Run `terraform destroy` when you don't need these resources.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -129,7 +121,7 @@ No modules.
 | <a name="input_db_maintenance_hour"></a> [db\_maintenance\_hour](#input\_db\_maintenance\_hour) | The start hour for maintenance window. | `string` | `null` | no |
 | <a name="input_db_maintenance_minute"></a> [db\_maintenance\_minute](#input\_db\_maintenance\_minute) | The start minute for maintenance window. | `string` | `null` | no |
 | <a name="input_db_name"></a> [db\_name](#input\_db\_name) | Name of the database that will be created on the flexible instance. If this is specified then a database will be created as a part of the instance provisioning process. | `string` | `null` | no |
-| <a name="input_db_parameters"></a> [db\_parameters](#input\_db\_parameters) | Intel Cloud optimizations for Xeon processors | <pre>object({<br>    postgres = optional(object({<br>      max_connections = optional(object({<br>        value = optional(string, "256")<br>      }))<br>      shared_buffers = optional(object({<br>        value = optional(string, "6291456")<br>      }))<br>      huge_pages = optional(object({<br>        value = optional(string, "on")<br>      }))<br>      temp_buffers = optional(object({<br>        value = optional(string, "4000")<br>      }))<br>      work_mem = optional(object({<br>        value = optional(string, "2097151")<br>      }))<br>      maintenance_work_mem = optional(object({<br>        value = optional(string, "512000")<br>      }))<br>      autovacuum_work_mem = optional(object({<br>        value = optional(string, "-1")<br>      }))<br>      effective_io_concurrency = optional(object({<br>        value = optional(string, "32")<br>      }))<br>      wal_level = optional(object({<br>        value = optional(string, "logical")<br>      }))<br>      wal_buffers = optional(object({<br>        value = optional(string, "512")<br>      }))<br>      cpu_tuple_cost = optional(object({<br>        value = optional(string, "0.03")<br>      }))<br>      effective_cache_size = optional(object({<br>        value = optional(string, "350000000")<br>      }))<br>      random_page_cost = optional(object({<br>        value = optional(string, "1.1")<br>      }))<br>      checkpoint_timeout = optional(object({<br>        value = optional(string, "3600")<br>      }))<br>      checkpoint_completion_target = optional(object({<br>        value = optional(string, "0.9")<br>      }))<br>      checkpoint_warning = optional(object({<br>        value = optional(string, "1")<br>      }))<br>      log_min_messages = optional(object({<br>        value = optional(string, "error")<br>      }))<br>      log_min_error_statement = optional(object({<br>        value = optional(string, "error")<br>      }))<br>      autovacuum = optional(object({<br>        value = optional(string, "on")<br>      }))<br>      autovacuum_max_workers = optional(object({<br>        value = optional(string, "10")<br>      }))<br>      autovacuum_vacuum_cost_limit = optional(object({<br>        value = optional(string, "3000")<br>      }))<br>      datestyle = optional(object({<br>        value = optional(string, "ISO, DMY")<br>      }))<br>      lc_monetary = optional(object({<br>        value = optional(string, "en_US.utf-8")<br>      }))<br>      lc_numeric = optional(object({<br>        value = optional(string, "en_US.utf-8")<br>      }))<br>      default_text_search_config = optional(object({<br>        value = optional(string, "pg_catalog.english")<br>      }))<br>      max_locks_per_transaction = optional(object({<br>        value = optional(string, "64")<br>      }))<br>      max_wal_senders = optional(object({<br>        value = optional(string, "5")<br>      }))<br>      min_wal_size = optional(object({<br>        value = optional(string, "8192")<br>      }))<br>      max_wal_size = optional(object({<br>        value = optional(string, "524")<br>      }))<br>    }))<br>  # This parameter is READ-Only in Azure Portal and defaults to ON<br>  # "synchronous_commit"   = "on",<br><br>  # Below set of PostgreSQL are recommended on the Xeon Tunning Guide but are not currently not supported by Azure PostgreSQL flexible server<br>  # "max_stack_depth"     = 7,<br>  # "dynamic_shared_memory_type" = "posix",<br>  # "max_files_per_process" = 4000,<br>  # "max_pred_locks_per_transaction" = 64,<br>  # "archive_mode" = "off",<br>  # "lc_time" = "en_US.UTF-8",<br>  # "lc_messages" = "en_US.UTF-8",<br>  })</pre> | <pre>{<br>  "postgres": {<br>    "autovacuum": {},<br>    "autovacuum_max_workers": {},<br>    "autovacuum_vacuum_cost_limit": {},<br>    "autovacuum_work_mem": {},<br>    "checkpoint_completion_target": {},<br>    "checkpoint_timeout": {},<br>    "checkpoint_warning": {},<br>    "cpu_tuple_cost": {},<br>    "datestyle": {},<br>    "default_text_search_config": {},<br>    "effective_cache_size": {},<br>    "effective_io_concurrency": {},<br>    "huge_pages": {},<br>    "lc_monetary": {},<br>    "lc_numeric": {},<br>    "log_min_error_statement": {},<br>    "log_min_messages": {},<br>    "maintenance_work_mem": {},<br>    "max_connections": {},<br>    "max_locks_per_transaction": {},<br>    "max_wal_senders": {},<br>    "max_wal_size": {},<br>    "min_wal_size": {},<br>    "random_page_cost": {},<br>    "shared_buffers": {},<br>    "temp_buffers": {},<br>    "wal_buffers": {},<br>    "wal_level": {},<br>    "work_mem": {}<br>  }<br>}</pre> | no |
+| <a name="input_db_parameters"></a> [db\_parameters](#input\_db\_parameters) | Intel Cloud optimizations for Xeon processors | <pre>object({<br>    postgres = optional(object({<br>      max_connections = optional(object({<br>        value = optional(string, "256")<br>      }))<br>      shared_buffers = optional(object({<br>        value = optional(string, "6291456")<br>      }))<br>      huge_pages = optional(object({<br>        value = optional(string, "on")<br>      }))<br>      temp_buffers = optional(object({<br>        value = optional(string, "4000")<br>      }))<br>      work_mem = optional(object({<br>        value = optional(string, "2097151")<br>      }))<br>      maintenance_work_mem = optional(object({<br>        value = optional(string, "512000")<br>      }))<br>      autovacuum_work_mem = optional(object({<br>        value = optional(string, "-1")<br>      }))<br>      effective_io_concurrency = optional(object({<br>        value = optional(string, "32")<br>      }))<br>      wal_level = optional(object({<br>        value = optional(string, "logical")<br>      }))<br>      wal_buffers = optional(object({<br>        value = optional(string, "512")<br>      }))<br>      cpu_tuple_cost = optional(object({<br>        value = optional(string, "0.03")<br>      }))<br>      effective_cache_size = optional(object({<br>        value = optional(string, "350000000")<br>      }))<br>      random_page_cost = optional(object({<br>        value = optional(string, "1.1")<br>      }))<br>      checkpoint_timeout = optional(object({<br>        value = optional(string, "3600")<br>      }))<br>      checkpoint_completion_target = optional(object({<br>        value = optional(string, "0.9")<br>      }))<br>      checkpoint_warning = optional(object({<br>        value = optional(string, "1")<br>      }))<br>      log_min_messages = optional(object({<br>        value = optional(string, "error")<br>      }))<br>      log_min_error_statement = optional(object({<br>        value = optional(string, "error")<br>      }))<br>      autovacuum = optional(object({<br>        value = optional(string, "on")<br>      }))<br>      autovacuum_max_workers = optional(object({<br>        value = optional(string, "10")<br>      }))<br>      autovacuum_vacuum_cost_limit = optional(object({<br>        value = optional(string, "3000")<br>      }))<br>      datestyle = optional(object({<br>        value = optional(string, "ISO, DMY")<br>      }))<br>      lc_monetary = optional(object({<br>        value = optional(string, "en_US.utf-8")<br>      }))<br>      lc_numeric = optional(object({<br>        value = optional(string, "en_US.utf-8")<br>      }))<br>      default_text_search_config = optional(object({<br>        value = optional(string, "pg_catalog.english")<br>      }))<br>      max_locks_per_transaction = optional(object({<br>        value = optional(string, "64")<br>      }))<br>      max_wal_senders = optional(object({<br>        value = optional(string, "5")<br>      }))<br>      min_wal_size = optional(object({<br>        value = optional(string, "8192")<br>      }))<br>      max_wal_size = optional(object({<br>        value = optional(string, "524")<br>      }))<br>    }))<br>    # This parameter is READ-Only in Azure Portal and defaults to ON<br>    # "synchronous_commit"   = "on",<br><br>    # Below set of PostgreSQL are recommended on the Xeon Tunning Guide but are not currently not supported by Azure PostgreSQL flexible server<br>    # "max_stack_depth"     = 7,<br>    # "dynamic_shared_memory_type" = "posix",<br>    # "max_files_per_process" = 4000,<br>    # "max_pred_locks_per_transaction" = 64,<br>    # "archive_mode" = "off",<br>    # "lc_time" = "en_US.UTF-8",<br>    # "lc_messages" = "en_US.UTF-8",<br>  })</pre> | <pre>{<br>  "postgres": {<br>    "autovacuum": {},<br>    "autovacuum_max_workers": {},<br>    "autovacuum_vacuum_cost_limit": {},<br>    "autovacuum_work_mem": {},<br>    "checkpoint_completion_target": {},<br>    "checkpoint_timeout": {},<br>    "checkpoint_warning": {},<br>    "cpu_tuple_cost": {},<br>    "datestyle": {},<br>    "default_text_search_config": {},<br>    "effective_cache_size": {},<br>    "effective_io_concurrency": {},<br>    "huge_pages": {},<br>    "lc_monetary": {},<br>    "lc_numeric": {},<br>    "log_min_error_statement": {},<br>    "log_min_messages": {},<br>    "maintenance_work_mem": {},<br>    "max_connections": {},<br>    "max_locks_per_transaction": {},<br>    "max_wal_senders": {},<br>    "max_wal_size": {},<br>    "min_wal_size": {},<br>    "random_page_cost": {},<br>    "shared_buffers": {},<br>    "temp_buffers": {},<br>    "wal_buffers": {},<br>    "wal_level": {},<br>    "work_mem": {}<br>  }<br>}</pre> | no |
 | <a name="input_db_password"></a> [db\_password](#input\_db\_password) | Password for the master database user. | `string` | n/a | yes |
 | <a name="input_db_private_dns_zone_id"></a> [db\_private\_dns\_zone\_id](#input\_db\_private\_dns\_zone\_id) | The ID of the private DNS zone to create the Flexible Server. | `string` | `null` | no |
 | <a name="input_db_restore_time"></a> [db\_restore\_time](#input\_db\_restore\_time) | When create\_mode is PointInTimeRestore, specifies the point in time to restore from creation\_source\_server\_id. It should be provided in RFC3339 format, e.g. 2013-11-08T22:00:40Z. | `string` | `null` | no |
