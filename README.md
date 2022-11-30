@@ -4,6 +4,8 @@
 
 # Intel Cloud Optimization Modules for Terraform
 
+© Copyright 2022, Intel Corporation
+
 ## Azure PostgreSQL Flexible Server Module
 
 This module can be used to deploy an Intel optimized Azure PostgreSQL Flexible Server instance.
