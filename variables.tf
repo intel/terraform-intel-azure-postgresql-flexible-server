@@ -13,7 +13,7 @@
 variable "db_server_sku" {
   description = "Instance SKU, see comments above for guidance"
   type        = string
-  default     = "MO_Standard_E4ds_v4"
+  default     = "MO_Standard_E8ds_v4"
 }
 
 variable "db_parameters" {
@@ -22,10 +22,9 @@ variable "db_parameters" {
       max_connections = optional(object({
         value = optional(string, "256")
       }))
-      # Instance issues # We need to add some form of logic to determine the percentage of the memory on the instance to allocate
-      # shared_buffers = optional(object({
-      #   value = optional(string, "64000")
-      # }))
+      shared_buffers = optional(object({
+        value = optional(string, "6291456")
+      }))
       huge_pages = optional(object({
         value = optional(string, "on")
       }))
@@ -108,6 +107,17 @@ variable "db_parameters" {
         value = optional(string, "524")
       }))
     }))
+  # This parameter is READ-Only in Azure Portal and defaults to ON
+  # "synchronous_commit"   = "on",
+
+  # Below set of PostgreSQL are recommended on the Xeon Tunning Guide but are not currently not supported by Azure PostgreSQL flexible server
+  # "max_stack_depth"     = 7,
+  # "dynamic_shared_memory_type" = "posix",
+  # "max_files_per_process" = 4000,
+  # "max_pred_locks_per_transaction" = 64,
+  # "archive_mode" = "off",
+  # "lc_time" = "en_US.UTF-8",
+  # "lc_messages" = "en_US.UTF-8",
   })
   default = {
     postgres = {
@@ -135,7 +145,7 @@ variable "db_parameters" {
       max_wal_size                 = {}
       min_wal_size                 = {}
       random_page_cost             = {}
-      # shared_buffers               = {} # We need to add some form of logic to determine the percentage of the memory on the instance to allocate
+      shared_buffers               = {} # We need to add some form of logic to determine the percentage of the memory on the instance to allocate
       temp_buffers = {}
       wal_buffers  = {}
       wal_level    = {}
@@ -143,32 +153,15 @@ variable "db_parameters" {
     }
   }
   description = "Intel Cloud optimizations for Xeon processors"
-  /* This parameter is READ-Only in Azure Portal and defaults to ON. */
-
-  # "synchronous_commit"   = "on",
-
-  /* The set of PostgreSQL configuration parameter are available and recommended on the Xeon Tunning Guide,
-        but as of right now, configuration of this parameters ((given below) is not supported. */
-
-  # "max_stack_depth"     = 7,
-  # "dynamic_shared_memory_type" = "posix",
-  # "max_files_per_process" = 4000,
-  # "max_pred_locks_per_transaction" = 64,
-  # "archive_mode" = "off",
-  # "lc_time" = "en_US.UTF-8",
-  # "lc_messages" = "en_US.UTF-8",
 }
 
-#Resource Group Name
+########################
+####    Required    ####
+########################
+
 variable "resource_group_name" {
   description = "Existing Resource Group where resource will be created."
   type        = string
-}
-
-variable "db_username" {
-  description = "Username for the master database user."
-  type        = string
-  default     = "pgadmin"
 }
 
 variable "db_password" {
@@ -179,6 +172,21 @@ variable "db_password" {
     condition     = length(var.db_password) >= 8
     error_message = "The db_password value must be at least 8 characters in length."
   }
+}
+
+variable "db_server_name" {
+  description = "Name of the server that will be created."
+  type        = string
+}
+
+########################
+####     Other      ####
+########################
+
+variable "db_username" {
+  description = "Username for the master database user."
+  type        = string
+  default     = "pgadmin"
 }
 
 variable "db_zone" {
@@ -199,7 +207,6 @@ variable "db_ha_mode" {
   default     = "ZoneRedundant"
 }
 
-# Backups
 variable "db_backup_retention_period" {
   description = "The days to retain backups for. Must be between 1 and 35."
   type        = number
@@ -219,7 +226,7 @@ variable "db_geo_backup_enabled" {
 variable "db_allocated_storage" {
   description = "The max storage allowed for the PostgreSQL Flexible Server. Possible values (MB) are 32768, 65536, 131072, 262144, 524288, 1048576, 2097152, 4194304, 8388608, and 16777216."
   type        = number
-  default     = 32768
+  default     = 2097152
 }
 
 variable "db_create_mode" {
@@ -244,14 +251,9 @@ variable "db_name" {
   default     = null
 }
 
-#TODO Check with Lucas on this validation
 variable "db_engine_version" {
   description = "Database engine version for the Azure database instance."
   type        = string
-  validation {
-    condition     = contains(["11", "12", "13", "14"], var.db_engine_version)
-    error_message = "The db_engine_version must be \"11\", \"12\", \"13\" or \"14\"."
-  }
   default = "14"
 }
 
@@ -260,12 +262,6 @@ variable "db_restore_time" {
   type        = string
   default     = null
 }
-
-variable "db_server_name" {
-  description = "Name of the server that will be created."
-  type        = string
-}
-
 
 variable "db_collation" {
   description = "Specifies the Collation for the Database."
