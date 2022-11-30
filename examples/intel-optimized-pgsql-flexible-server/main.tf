@@ -8,3 +8,4 @@ module "optimized-postgres-server" {
     Application = "App Database"
   }
 }
+

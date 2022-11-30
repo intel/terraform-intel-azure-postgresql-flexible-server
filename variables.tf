@@ -107,17 +107,17 @@ variable "db_parameters" {
         value = optional(string, "524")
       }))
     }))
-  # This parameter is READ-Only in Azure Portal and defaults to ON
-  # "synchronous_commit"   = "on",
+    # This parameter is READ-Only in Azure Portal and defaults to ON
+    # "synchronous_commit"   = "on",
 
-  # Below set of PostgreSQL are recommended on the Xeon Tunning Guide but are not currently not supported by Azure PostgreSQL flexible server
-  # "max_stack_depth"     = 7,
-  # "dynamic_shared_memory_type" = "posix",
-  # "max_files_per_process" = 4000,
-  # "max_pred_locks_per_transaction" = 64,
-  # "archive_mode" = "off",
-  # "lc_time" = "en_US.UTF-8",
-  # "lc_messages" = "en_US.UTF-8",
+    # Below set of PostgreSQL are recommended on the Xeon Tunning Guide but are not currently not supported by Azure PostgreSQL flexible server
+    # "max_stack_depth"     = 7,
+    # "dynamic_shared_memory_type" = "posix",
+    # "max_files_per_process" = 4000,
+    # "max_pred_locks_per_transaction" = 64,
+    # "archive_mode" = "off",
+    # "lc_time" = "en_US.UTF-8",
+    # "lc_messages" = "en_US.UTF-8",
   })
   default = {
     postgres = {
@@ -145,11 +145,11 @@ variable "db_parameters" {
       max_wal_size                 = {}
       min_wal_size                 = {}
       random_page_cost             = {}
-      shared_buffers               = {} # We need to add some form of logic to determine the percentage of the memory on the instance to allocate
-      temp_buffers = {}
-      wal_buffers  = {}
-      wal_level    = {}
-      work_mem     = {}
+      shared_buffers               = {} 
+      temp_buffers                 = {}
+      wal_buffers                  = {}
+      wal_level                    = {}
+      work_mem                     = {}
     }
   }
   description = "Intel Cloud optimizations for Xeon processors"
@@ -254,7 +254,7 @@ variable "db_name" {
 variable "db_engine_version" {
   description = "Database engine version for the Azure database instance."
   type        = string
-  default = "14"
+  default     = "14"
 }
 
 variable "db_restore_time" {
