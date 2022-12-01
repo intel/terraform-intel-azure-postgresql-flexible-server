@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./images/logo-classicblue-800px.png" alt="Intel Logo" width="250"/>
+  <img src="https://github.com/intel/terraform-intel-azure-postgresql_flexible_server/blob/main/images/logo-classicblue-800px.png?raw=true" alt="Intel Logo" width="250"/>
 </p>
 
 # Intel Cloud Optimization Modules for Terraform
