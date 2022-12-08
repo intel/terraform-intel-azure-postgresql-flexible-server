@@ -38,7 +38,7 @@ variable "db_password" {
 main.tf
 
 ```hcl
-module "optimized-mysql-server" {
+module "optimized-postgresql-server" {
   source          = "github.com/intel/terraform-intel-azure-postgresql_flexible_server"
   resource_group_name = "<RESOURCE_GROUP_NAME>"   
   db_server_name      = "<DB_SERVER_NAME>" 
