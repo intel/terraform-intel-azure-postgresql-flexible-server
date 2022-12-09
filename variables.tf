@@ -145,7 +145,7 @@ variable "db_parameters" {
       max_wal_size                 = {}
       min_wal_size                 = {}
       random_page_cost             = {}
-      shared_buffers               = {} 
+      shared_buffers               = {}
       temp_buffers                 = {}
       wal_buffers                  = {}
       wal_level                    = {}

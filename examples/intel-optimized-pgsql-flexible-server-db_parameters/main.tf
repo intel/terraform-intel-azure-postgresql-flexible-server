@@ -1,5 +1,5 @@
 module "optimized-postgres-server" {
-  source              = "github.com/intel/terraform-intel-azure-postgresql_flexible_server"
+  source              = "intel/azure-postgresql-flexible-server/intel"
   resource_group_name = "resource_group_name" # Required
   db_server_name      = "mysetestingserver34" # Required
   db_password         = var.db_password       # Required
