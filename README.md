@@ -31,7 +31,7 @@ The PostgreSQL Optimizations were based off [Intel Xeon Tunning guides](<https:/
 
 <p align="center">
   <a href="https://www.intel.com/content/www/us/en/content-details/753667/support-more-postgresql-transactions-with-microsoft-azure-lsv3-virtual-machines-enabled-by-3rd-gen-intel-xeon-scalable-processors.html">
-  <img src="https://github.com/intel/terraform-intel-azure-postgresql-flexible-server/blob/main/images/postgresql-2.png?raw=true" alt="Link" width="600"/>
+  <img src="https://github.com/intel/terraform-intel-azure-postgresql-flexible-server/blob/main/images/postgresql-2a.png?raw=true" alt="Link" width="600"/>
   </a>
 </p>
 
