@@ -9,9 +9,43 @@
 ## Azure PostgreSQL Flexible Server Module
 
 This module can be used to deploy an Intel optimized Azure PostgreSQL Flexible Server instance.
-Instance selection and pgsql optimization are included by default in the code.
+Instance selection and PostgreSQL optimization are included by default in the code.
 
 The PostgreSQL Optimizations were based off [Intel Xeon Tunning guides](<https://www.intel.com/content/www/us/en/developer/articles/guide/open-source-database-tuning-guide-on-xeon-systems.html>)
+
+## Performance Data
+
+<center>
+
+#### [Boost Azure PostgreSQL performance by up to 1.42x with 3rd Generation Intel® Xeon® Scalable Processor (Ice Lake)](https://www.intel.com/content/www/us/en/content-details/756374/support-up-to-1-42x-more-customers-accessing-postgresql-databases-on-microsoft-azure-edsv4-virtual-machines-vs-esv3-vms.html)
+
+<p align="center">
+  <a href="https://www.intel.com/content/www/us/en/content-details/756374/support-up-to-1-42x-more-customers-accessing-postgresql-databases-on-microsoft-azure-edsv4-virtual-machines-vs-esv3-vms.html">
+  <img src="https://github.com/intel/terraform-intel-azure-postgresql-flexible-server/blob/main/images/postgresql-1.png?raw=true" alt="Link" width="600"/>
+  </a>
+</p>
+
+#
+
+#### [Process up to 1.24x more Azure PostgreSQL transactions with 3rd Generation Intel® Xeon® Scalable Processor (Ice Lake)](https://www.intel.com/content/www/us/en/content-details/753667/support-more-postgresql-transactions-with-microsoft-azure-lsv3-virtual-machines-enabled-by-3rd-gen-intel-xeon-scalable-processors.html)
+
+<p align="center">
+  <a href="https://www.intel.com/content/www/us/en/content-details/753667/support-more-postgresql-transactions-with-microsoft-azure-lsv3-virtual-machines-enabled-by-3rd-gen-intel-xeon-scalable-processors.html">
+  <img src="https://github.com/intel/terraform-intel-azure-postgresql-flexible-server/blob/main/images/postgresql-2a.png?raw=true" alt="Link" width="600"/>
+  </a>
+</p>
+
+#
+
+#### [Up to 1.23x more Azure PostgreSQL OLTP transactions per minute with 3rd Generation Intel® Xeon® Scalable Processor (Ice Lake)](https://www.principledtechnologies.com/intel/Azure-Lsv3-VMs-PostgreSQL-1122-v2.pdf)
+
+<p align="center">
+  <a href="https://www.principledtechnologies.com/intel/Azure-Lsv3-VMs-PostgreSQL-1122-v2.pdf">
+  <img src="https://github.com/intel/terraform-intel-azure-postgresql-flexible-server/blob/main/images/postgresql-3.png?raw=true" alt="Link" width="600"/>
+  </a>
+</p>
+
+</center>
 
 ## Usage
 
