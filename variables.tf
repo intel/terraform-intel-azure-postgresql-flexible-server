@@ -104,7 +104,7 @@ variable "db_parameters" {
         value = optional(string, "8192")
       }))
       max_wal_size = optional(object({
-        value = optional(string, "524288")
+        value = optional(string, "65536")
       }))
     }))
     # This parameter is READ-Only in Azure Portal and defaults to ON
