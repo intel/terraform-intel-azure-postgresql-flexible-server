@@ -1,17 +1,24 @@
 name: Generate terraform docs
+permissions: read-all
+  
 on:
   - pull_request
-  
+
 jobs:
   docs:
+    permissions:
+      actions: write
+      contents: write
+      pull-requests: write
+      issues: write
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
       with:
         ref: ${{ github.event.pull_request.head.ref }}
 
-    - name: Render terraform docs inside the README.md and push changes back to PR branch
-      uses: terraform-docs/gh-actions@v1.0.0
+    - name: Generates terraform docs and push changes back to PR
+      uses: terraform-docs/gh-actions@main
       with:
         working-dir: .
         output-file: README.md
