@@ -41,6 +41,7 @@ resource "azurerm_postgresql_flexible_server" "postgres" {
   zone                = var.db_zone
   private_dns_zone_id = var.db_private_dns_zone_id
   delegated_subnet_id = var.db_private_dns_zone_id != null ? var.db_delegated_subnet_id : null
+  public_network_access_enabled = delegated_subnet_id != null && private_dns_zone_id != null ? false : true
 
 
   source_server_id                  = var.db_create_source_id
