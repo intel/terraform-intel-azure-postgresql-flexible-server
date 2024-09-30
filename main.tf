@@ -42,8 +42,6 @@ resource "azurerm_postgresql_flexible_server" "postgres" {
   private_dns_zone_id = var.db_private_dns_zone_id
   delegated_subnet_id = var.db_private_dns_zone_id != null ? var.db_delegated_subnet_id : null
   public_network_access_enabled = var.db_delegated_subnet_id != null && var.db_private_dns_zone_id != null ? false : true
-
-
   source_server_id                  = var.db_create_source_id
   point_in_time_restore_time_in_utc = var.db_create_mode == "PointInTimeRestore" && var.db_create_source_id != null ? var.db_restore_time : null
 
