@@ -4,7 +4,7 @@
 
 # Intel Optimized Cloud Modules for Terraform
 
-© Copyright 2024, Intel Corporation
+© Copyright 2025, Intel Corporation
 
 ## Intel Optimized Azure PostgreSQL Flexible Server Module Expanded Parameters Example
 
