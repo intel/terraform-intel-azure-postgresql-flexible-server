@@ -4,7 +4,7 @@
 
 # Intel Optimized Cloud Modules for Terraform
 
-© Copyright 2024, Intel Corporation
+© Copyright 2025, Intel Corporation
 
 ## Azure PostgreSQL Flexible Server Module
 
@@ -162,7 +162,7 @@ No modules.
 | <a name="input_db_private_dns_zone_id"></a> [db\_private\_dns\_zone\_id](#input\_db\_private\_dns\_zone\_id) | The ID of the private DNS zone to create the Flexible Server. | `string` | `null` | no |
 | <a name="input_db_restore_time"></a> [db\_restore\_time](#input\_db\_restore\_time) | When create\_mode is PointInTimeRestore, specifies the point in time to restore from creation\_source\_server\_id. It should be provided in RFC3339 format, e.g. 2013-11-08T22:00:40Z. | `string` | `null` | no |
 | <a name="input_db_server_name"></a> [db\_server\_name](#input\_db\_server\_name) | Name of the server that will be created. | `string` | n/a | yes |
-| <a name="input_db_server_sku"></a> [db\_server\_sku](#input\_db\_server\_sku) | Instance SKU, see comments above for guidance | `string` | `"MO_Standard_E8ds_v4"` | no |
+| <a name="input_db_server_sku"></a> [db\_server\_sku](#input\_db\_server\_sku) | Instance SKU, see comments above for guidance | `string` | `"MO_Standard_E8ds_v5"` | no |
 | <a name="input_db_timeouts"></a> [db\_timeouts](#input\_db\_timeouts) | Map of timeouts that can be adjusted when executing the module. This allows you to customize how long certain operations are allowed to take before being considered to have failed. | <pre>object({<br/>    create = optional(string, null)<br/>    delete = optional(string, null)<br/>    update = optional(string, null)<br/>    read   = optional(string, null)<br/>  })</pre> | <pre>{<br/>  "db_timeouts": {}<br/>}</pre> | no |
 | <a name="input_db_username"></a> [db\_username](#input\_db\_username) | Username for the master database user. | `string` | `"pgadmin"` | no |
 | <a name="input_db_zone"></a> [db\_zone](#input\_db\_zone) | Specifies the Availability Zone in which this Flexible Server should be located. Possible values are 1, 2 and 3. | `string` | `"2"` | no |

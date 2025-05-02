@@ -2,18 +2,18 @@
 ####     Intel      ####
 ########################
 
-# See policies.md, Intel recommends the Eds_v4-series running on the 3rd Generation Intel® Xeon® Platinum 8370C (Ice Lake), the Intel® Xeon® Platinum 8272CL (Cascade Lake) processors.
-# General Purpose: GP_Standard_E2ds_v4, GP_Standard_E4ds_v4, GP_Standard_E8ds_v4, GP_Standard_E16ds_v4, GP_Standard_E20ds_v4, GP_Standard_E32ds_v4,GP_Standard_E48ds_v4, GP_Standard_E64ds_v4
-# Memory Optimized: MO_Standard_E2ds_v4, MO_Standard_E4ds_v4, MO_Standard_E8ds_v4, MO_Standard_E16ds_v4, MO_Standard_E20ds_v4, MO_Standard_E32ds_v4,MO_Standard_E48ds_v4, MO_Standard_E64ds_v4
-# The number between E and d in MO_Standard_E8ds_v4 stands for vCores. 
-# Ex.: MO_Standard_E8ds_v4-> 8 stands for vCPU count
+# See policies.md, Intel recommends the Eds_v5-series running on the 3rd Generation Intel® Xeon® Platinum 8370C (Ice Lake).
+# General Purpose: GP_Standard_D2ds_v5, GP_Standard_D4ds_v5, GP_Standard_D8ds_v5, GP_Standard_D16ds_v5, GP_Standard_D32ds_v5, GP_Standard_D48ds_v5, GP_tandard_D64ds_v5
+# Memory Optimized: MO_Standard_E2ds_v5, MO_Standard_E4ds_v5, MO_Standard_E8ds_v5, MO_Standard_E16ds_v5, MO_Standard_E20ds_v5, MO_Standard_E32sd_v5, MO_Standard_E48ds_v5, MO_Standard_E64ds_v5, MO_Standard_E96ds_v5
+# The number between E and d in MO_Standard_E8ds_v5 stands for vCores. 
+# Ex. MO_Standard_E8ds_v4-> 8 stands for vCPU count
 # See more:
 # https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage
 
 variable "db_server_sku" {
   description = "Instance SKU, see comments above for guidance"
   type        = string
-  default     = "MO_Standard_E8ds_v4"
+  default     = "MO_Standard_E8ds_v5"
 }
 
 variable "db_parameters" {

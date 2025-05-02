@@ -1,7 +1,7 @@
 module "optimized-postgres-server" {
   source              = "intel/azure-postgresql-flexible-server/intel"
-  resource_group_name = "terraform-testing-rg"
-  db_server_name      = "testingserver25"
+  resource_group_name = "<Your-ResourceGroup-Name>"
+  db_server_name      = "<Your-Server-Name>"
   db_password         = var.db_password
   tags = {
     Owner       = "John Doe"
