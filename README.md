@@ -199,10 +199,4 @@ No modules.
 | <a name="output_db_server_sku"></a> [db\_server\_sku](#output\_db\_server\_sku) | Instance SKU in use for the database instance that was created. |
 | <a name="output_db_username"></a> [db\_username](#output\_db\_username) | Database instance master username. |
 | <a name="output_db_zone"></a> [db\_zone](#output\_db\_zone) | Zone where the database instance was deployed. |
-
-## Links
-
-<https://learn.microsoft.com/en-us/azure/virtual-machines/edv4-edsv4-series>
-
-<https://azure.microsoft.com/en-us/pricing/details/postgresql/flexible-server/>
 <!-- END_TF_DOCS -->
